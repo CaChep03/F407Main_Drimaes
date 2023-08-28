@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "nrf24l01.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -40,6 +40,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+extern SPI_HandleTypeDef hspi1;
+
 TIM_HandleTypeDef htim7;
 TIM_HandleTypeDef htim8;
 
@@ -48,7 +50,12 @@ UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_uart4_rx;
 
 /* USER CODE BEGIN PV */
-
+nrf24l01 NRF24;
+uint32_t rx_data;
+static const uint8_t rx_address[5] = {0x12, 0x34, 0x56, 0x78, 0x90};
+static const uint8_t tx_address[5] = {0x12, 0x34, 0x56, 0x78, 0x90};
+int8_t Speed =0;
+int16_t Steering =0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -59,13 +66,58 @@ static void MX_TIM8_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_UART4_Init(void);
 static void MX_TIM7_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+static void NRF24_error() {
+    while (true) {
+        HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, 0);
+    }
+}
+void NRF24_Init(){
+    nrf24l01_config config;
+    config.data_rate = NRF_DATA_RATE_1MBPS;
+    config.tx_power = NRF_TX_PWR_0dBm;
+    config.crc_width = NRF_CRC_WIDTH_1B;
+    config.addr_width = NRF_ADDR_WIDTH_5;
+    config.payload_length = 4;
+    config.retransmit_count = 15;
+    config.retransmit_delay = 0x0F;
+    config.rf_channel = 0;
+    config.rx_address = rx_address;
+    config.tx_address = tx_address;
+    config.rx_buffer = (uint8_t*)&rx_data;
+    
+    config.spi = &hspi1;
+    config.spi_timeout = 100;
+    config.ce_port = NRF_CE_GPIO_Port;
+    config.ce_pin = NRF_CE_Pin;
+    config.irq_port = NRF_IRQ_GPIO_Port;
+    config.irq_pin = NRF_IRQ_Pin;
 
+    nrf_init(&NRF24, &config);
+}
+
+void NRF24_Receice(){
+    nrf_receive_packet(&NRF24);
+    Calculate_Control_Value(rx_data);
+}
+
+void Calculate_Control_Value(uint32_t *data){
+ 
+}
+
+void Control_base(int8_t* speed, int16_t steering)
+{
+  HAL_GPIO_WritePin(M1_D_GPIO_Port, M1_D_Pin, speed[0] > 0);
+  HAL_GPIO_WritePin(M2_D_GPIO_Port, M2_D_Pin, speed[1] > 0);
+  __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, speed[0]);
+  __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_2, speed[1]);
+}
 /* USER CODE END 0 */
 
 /**
@@ -84,7 +136,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -101,8 +152,10 @@ int main(void)
   MX_USART2_UART_Init();
   MX_UART4_Init();
   MX_TIM7_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-
+  NRF24_Init();
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_ALL);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,6 +163,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    NRF24_Receice();
 
     /* USER CODE BEGIN 3 */
   }
@@ -155,6 +209,44 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief SPI1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+
 }
 
 /**
@@ -384,7 +476,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, BUZZER_Pin|USL1_Pin|USL2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, BUZZER_Pin|USL1_Pin|NRF_CE_Pin|NRF_IRQ_Pin
+                          |USL2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10|USL4_Pin, GPIO_PIN_RESET);
@@ -407,27 +500,27 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : BUZZER_Pin USL1_Pin USL2_Pin */
-  GPIO_InitStruct.Pin = BUZZER_Pin|USL1_Pin|USL2_Pin;
+  /*Configure GPIO pins : BUZZER_Pin USL1_Pin NRF_CE_Pin NRF_IRQ_Pin
+                           USL2_Pin */
+  GPIO_InitStruct.Pin = BUZZER_Pin|USL1_Pin|NRF_CE_Pin|NRF_IRQ_Pin
+                          |USL2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC1 PC2 PC3 PC4
-                           PC5 PC10 PC11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4
-                          |GPIO_PIN_5|GPIO_PIN_10|GPIO_PIN_11;
+  /*Configure GPIO pins : PC1 PC2 PC3 PC10
+                           PC11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_10
+                          |GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA4 PA5 PA6 PA7
-                           PA8 PA9 PA10 PA11
-                           PA12 PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
-                          |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
-                          |GPIO_PIN_12|GPIO_PIN_15;
+  /*Configure GPIO pins : PA4 PA8 PA9 PA10
+                           PA11 PA12 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);

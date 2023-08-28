@@ -63,6 +63,10 @@ void Error_Handler(void);
 #define BUZZER_GPIO_Port GPIOC
 #define USL1_Pin GPIO_PIN_0
 #define USL1_GPIO_Port GPIOC
+#define NRF_CE_Pin GPIO_PIN_4
+#define NRF_CE_GPIO_Port GPIOC
+#define NRF_IRQ_Pin GPIO_PIN_5
+#define NRF_IRQ_GPIO_Port GPIOC
 #define USL4_Pin GPIO_PIN_15
 #define USL4_GPIO_Port GPIOE
 #define E_Button_Pin GPIO_PIN_10
