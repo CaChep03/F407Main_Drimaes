@@ -49,8 +49,6 @@ extern "C" {
 
 /* USER CODE END EM */
 
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -64,9 +62,13 @@ void Error_Handler(void);
 #define USL1_Pin GPIO_PIN_0
 #define USL1_GPIO_Port GPIOC
 #define NRF_CE_Pin GPIO_PIN_4
+<<<<<<< HEAD
 #define NRF_CE_GPIO_Port GPIOC
 #define NRF_IRQ_Pin GPIO_PIN_5
 #define NRF_IRQ_GPIO_Port GPIOC
+=======
+#define NRF_CE_GPIO_Port GPIOA
+>>>>>>> 7e3a245564d34026c6629dc1f6f08a0930f4cd94
 #define USL4_Pin GPIO_PIN_15
 #define USL4_GPIO_Port GPIOE
 #define E_Button_Pin GPIO_PIN_10
@@ -74,24 +76,12 @@ void Error_Handler(void);
 #define E_Button_EXTI_IRQn EXTI15_10_IRQn
 #define USL3_Pin GPIO_PIN_15
 #define USL3_GPIO_Port GPIOD
-#define M2_Pin GPIO_PIN_6
-#define M2_GPIO_Port GPIOC
-#define M1_Pin GPIO_PIN_7
-#define M1_GPIO_Port GPIOC
-#define M3_Pin GPIO_PIN_8
-#define M3_GPIO_Port GPIOC
-#define M4_Pin GPIO_PIN_9
-#define M4_GPIO_Port GPIOC
 #define USL2_Pin GPIO_PIN_12
 #define USL2_GPIO_Port GPIOC
-#define M2_D_Pin GPIO_PIN_0
-#define M2_D_GPIO_Port GPIOD
-#define M1_D_Pin GPIO_PIN_1
-#define M1_D_GPIO_Port GPIOD
-#define M3_D_Pin GPIO_PIN_5
-#define M3_D_GPIO_Port GPIOD
-#define M4_D_Pin GPIO_PIN_6
-#define M4_D_GPIO_Port GPIOD
+#define NRF_IRQ_Pin GPIO_PIN_4
+#define NRF_IRQ_GPIO_Port GPIOB
+#define NRF_CSN_Pin GPIO_PIN_5
+#define NRF_CSN_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

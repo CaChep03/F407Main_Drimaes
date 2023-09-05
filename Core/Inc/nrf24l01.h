@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+<<<<<<< HEAD
 #if defined STM32F0
 #include "stm32f0xx_hal.h"
 #elif defined STM32F1
@@ -10,6 +11,15 @@
 #elif defined STM32F4
 #include "stm32f4xx_hal.h"
 #endif
+=======
+//#if defined STM32F0
+//#include "stm32f0xx_hal.h"
+//#elif defined STM32F1
+//#include "stm32f1xx_hal.h"
+//#elif defined STM32F4
+#include "stm32f4xx_hal.h"
+//#endif
+>>>>>>> 7e3a245564d34026c6629dc1f6f08a0930f4cd94
 
 /* Registers */
 typedef enum {
