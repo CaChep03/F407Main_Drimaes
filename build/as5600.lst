@@ -1,0 +1,506 @@
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"as5600.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.AS5600_WriteReg,"ax",%progbits
+  18              		.align	1
+  19              		.global	AS5600_WriteReg
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	AS5600_WriteReg:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Core/Src/as5600.c"
+   1:Core/Src/as5600.c **** /*
+   2:Core/Src/as5600.c **** 
+   3:Core/Src/as5600.c **** 
+   4:Core/Src/as5600.c **** 	AS5600.C - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï
+   5:Core/Src/as5600.c **** 
+   6:Core/Src/as5600.c **** 
+   7:Core/Src/as5600.c **** */
+   8:Core/Src/as5600.c **** 
+   9:Core/Src/as5600.c **** #include "stm32f4xx_hal.h"
+  10:Core/Src/as5600.c **** #include "as5600.h"
+  11:Core/Src/as5600.c **** 
+  12:Core/Src/as5600.c **** extern I2C_HandleTypeDef hi2c1;
+  13:Core/Src/as5600.c **** 
+  14:Core/Src/as5600.c **** void AS5600_WriteReg(uint8_t Reg, uint8_t Data)
+  15:Core/Src/as5600.c **** {
+  30              		.loc 1 15 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 15 1 is_stmt 0 view .LVU1
+  35 0000 70B5     		push	{r4, r5, r6, lr}
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 5, -12
+  39              		.cfi_offset 6, -8
+  40              		.cfi_offset 14, -4
+  41 0002 86B0     		sub	sp, sp, #24
+  42              		.cfi_def_cfa_offset 40
+  43 0004 0446     		mov	r4, r0
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 2
+
+
+  44 0006 8DF81710 		strb	r1, [sp, #23]
+  16:Core/Src/as5600.c **** 	HAL_I2C_Master_Transmit(&hi2c1,AS5600_ADDR,&Data,1,10);	
+  45              		.loc 1 16 2 is_stmt 1 view .LVU2
+  46 000a 0DF11706 		add	r6, sp, #23
+  47 000e 0A4D     		ldr	r5, .L3
+  48 0010 0A23     		movs	r3, #10
+  49 0012 0093     		str	r3, [sp]
+  50 0014 0123     		movs	r3, #1
+  51 0016 3246     		mov	r2, r6
+  52 0018 3621     		movs	r1, #54
+  53              	.LVL1:
+  54              		.loc 1 16 2 is_stmt 0 view .LVU3
+  55 001a 2846     		mov	r0, r5
+  56              	.LVL2:
+  57              		.loc 1 16 2 view .LVU4
+  58 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+  59              	.LVL3:
+  17:Core/Src/as5600.c **** 	HAL_I2C_Mem_Write(&hi2c1,(AS5600_ADDR << 1),Reg,1,&Data,1,100);
+  60              		.loc 1 17 2 is_stmt 1 view .LVU5
+  61 0020 6423     		movs	r3, #100
+  62 0022 0293     		str	r3, [sp, #8]
+  63 0024 0123     		movs	r3, #1
+  64 0026 0193     		str	r3, [sp, #4]
+  65 0028 0096     		str	r6, [sp]
+  66 002a 2246     		mov	r2, r4
+  67 002c 6C21     		movs	r1, #108
+  68 002e 2846     		mov	r0, r5
+  69 0030 FFF7FEFF 		bl	HAL_I2C_Mem_Write
+  70              	.LVL4:
+  18:Core/Src/as5600.c **** }
+  71              		.loc 1 18 1 is_stmt 0 view .LVU6
+  72 0034 06B0     		add	sp, sp, #24
+  73              		.cfi_def_cfa_offset 16
+  74              		@ sp needed
+  75 0036 70BD     		pop	{r4, r5, r6, pc}
+  76              	.L4:
+  77              		.align	2
+  78              	.L3:
+  79 0038 00000000 		.word	hi2c1
+  80              		.cfi_endproc
+  81              	.LFE130:
+  83              		.section	.text.AS5600_ReadReg,"ax",%progbits
+  84              		.align	1
+  85              		.global	AS5600_ReadReg
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu fpv4-sp-d16
+  91              	AS5600_ReadReg:
+  92              	.LVL5:
+  93              	.LFB131:
+  19:Core/Src/as5600.c **** 
+  20:Core/Src/as5600.c **** uint8_t AS5600_ReadReg(uint8_t Reg)
+  21:Core/Src/as5600.c **** {
+  94              		.loc 1 21 1 is_stmt 1 view -0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 3
+
+
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		.loc 1 21 1 is_stmt 0 view .LVU8
+  99 0000 00B5     		push	{lr}
+ 100              		.cfi_def_cfa_offset 4
+ 101              		.cfi_offset 14, -4
+ 102 0002 87B0     		sub	sp, sp, #28
+ 103              		.cfi_def_cfa_offset 32
+ 104 0004 0246     		mov	r2, r0
+  22:Core/Src/as5600.c **** 	uint8_t DataRead=0;	
+ 105              		.loc 1 22 2 is_stmt 1 view .LVU9
+ 106              		.loc 1 22 10 is_stmt 0 view .LVU10
+ 107 0006 0023     		movs	r3, #0
+ 108 0008 8DF81730 		strb	r3, [sp, #23]
+  23:Core/Src/as5600.c **** 	HAL_I2C_Mem_Read(&hi2c1,(AS5600_ADDR << 1),Reg,1,&DataRead,1,100);
+ 109              		.loc 1 23 2 is_stmt 1 view .LVU11
+ 110 000c 6423     		movs	r3, #100
+ 111 000e 0293     		str	r3, [sp, #8]
+ 112 0010 0123     		movs	r3, #1
+ 113 0012 0193     		str	r3, [sp, #4]
+ 114 0014 0DF11701 		add	r1, sp, #23
+ 115 0018 0091     		str	r1, [sp]
+ 116 001a 6C21     		movs	r1, #108
+ 117 001c 0348     		ldr	r0, .L7
+ 118              	.LVL6:
+ 119              		.loc 1 23 2 is_stmt 0 view .LVU12
+ 120 001e FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 121              	.LVL7:
+  24:Core/Src/as5600.c **** 	
+  25:Core/Src/as5600.c **** 	
+  26:Core/Src/as5600.c **** 	return DataRead;
+ 122              		.loc 1 26 2 is_stmt 1 view .LVU13
+  27:Core/Src/as5600.c **** }
+ 123              		.loc 1 27 1 is_stmt 0 view .LVU14
+ 124 0022 9DF81700 		ldrb	r0, [sp, #23]	@ zero_extendqisi2
+ 125 0026 07B0     		add	sp, sp, #28
+ 126              		.cfi_def_cfa_offset 4
+ 127              		@ sp needed
+ 128 0028 5DF804FB 		ldr	pc, [sp], #4
+ 129              	.L8:
+ 130              		.align	2
+ 131              	.L7:
+ 132 002c 00000000 		.word	hi2c1
+ 133              		.cfi_endproc
+ 134              	.LFE131:
+ 136              		.section	.text.AS5600_GetAngle,"ax",%progbits
+ 137              		.align	1
+ 138              		.global	AS5600_GetAngle
+ 139              		.syntax unified
+ 140              		.thumb
+ 141              		.thumb_func
+ 142              		.fpu fpv4-sp-d16
+ 144              	AS5600_GetAngle:
+ 145              	.LFB132:
+  28:Core/Src/as5600.c **** 
+  29:Core/Src/as5600.c **** uint16_t AS5600_GetAngle()
+  30:Core/Src/as5600.c **** {
+ 146              		.loc 1 30 1 is_stmt 1 view -0
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 4
+
+
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150 0000 10B5     		push	{r4, lr}
+ 151              		.cfi_def_cfa_offset 8
+ 152              		.cfi_offset 4, -8
+ 153              		.cfi_offset 14, -4
+  31:Core/Src/as5600.c **** 	return (int)((float)(AS5600_ReadReg(ANGLE_L) + (AS5600_ReadReg(ANGLE_H) << 8))/4096*360);	
+ 154              		.loc 1 31 2 view .LVU16
+ 155              		.loc 1 31 23 is_stmt 0 view .LVU17
+ 156 0002 0F20     		movs	r0, #15
+ 157 0004 FFF7FEFF 		bl	AS5600_ReadReg
+ 158              	.LVL8:
+ 159 0008 0446     		mov	r4, r0
+ 160              		.loc 1 31 50 view .LVU18
+ 161 000a 0E20     		movs	r0, #14
+ 162 000c FFF7FEFF 		bl	AS5600_ReadReg
+ 163              	.LVL9:
+ 164              		.loc 1 31 47 view .LVU19
+ 165 0010 04EB0023 		add	r3, r4, r0, lsl #8
+ 166 0014 07EE903A 		vmov	s15, r3	@ int
+ 167              		.loc 1 31 15 view .LVU20
+ 168 0018 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 169              		.loc 1 31 80 view .LVU21
+ 170 001c 9FED067A 		vldr.32	s14, .L11
+ 171 0020 67EE877A 		vmul.f32	s15, s15, s14
+ 172              		.loc 1 31 85 view .LVU22
+ 173 0024 9FED057A 		vldr.32	s14, .L11+4
+ 174 0028 67EE877A 		vmul.f32	s15, s15, s14
+ 175              		.loc 1 31 9 view .LVU23
+ 176 002c FDEEE77A 		vcvt.s32.f32	s15, s15
+  32:Core/Src/as5600.c **** }
+ 177              		.loc 1 32 1 view .LVU24
+ 178 0030 17EE903A 		vmov	r3, s15	@ int
+ 179 0034 98B2     		uxth	r0, r3
+ 180 0036 10BD     		pop	{r4, pc}
+ 181              	.L12:
+ 182              		.align	2
+ 183              	.L11:
+ 184 0038 00008039 		.word	964689920
+ 185 003c 0000B443 		.word	1135869952
+ 186              		.cfi_endproc
+ 187              	.LFE132:
+ 189              		.section	.text.AS5600_GetRawAngle,"ax",%progbits
+ 190              		.align	1
+ 191              		.global	AS5600_GetRawAngle
+ 192              		.syntax unified
+ 193              		.thumb
+ 194              		.thumb_func
+ 195              		.fpu fpv4-sp-d16
+ 197              	AS5600_GetRawAngle:
+ 198              	.LFB133:
+  33:Core/Src/as5600.c **** 
+  34:Core/Src/as5600.c **** 
+  35:Core/Src/as5600.c **** uint16_t AS5600_GetRawAngle()
+  36:Core/Src/as5600.c **** {
+ 199              		.loc 1 36 1 is_stmt 1 view -0
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 5
+
+
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203 0000 10B5     		push	{r4, lr}
+ 204              		.cfi_def_cfa_offset 8
+ 205              		.cfi_offset 4, -8
+ 206              		.cfi_offset 14, -4
+  37:Core/Src/as5600.c **** 	uint16_t AngleVal=AS5600_ReadReg(RAWANG_L) + (AS5600_ReadReg(RAWANG_H) << 8);
+ 207              		.loc 1 37 2 view .LVU26
+ 208              		.loc 1 37 20 is_stmt 0 view .LVU27
+ 209 0002 0D20     		movs	r0, #13
+ 210 0004 FFF7FEFF 		bl	AS5600_ReadReg
+ 211              	.LVL10:
+ 212 0008 84B2     		uxth	r4, r0
+ 213              		.loc 1 37 48 view .LVU28
+ 214 000a 0C20     		movs	r0, #12
+ 215 000c FFF7FEFF 		bl	AS5600_ReadReg
+ 216              	.LVL11:
+ 217 0010 80B2     		uxth	r0, r0
+ 218              		.loc 1 37 73 view .LVU29
+ 219 0012 0002     		lsls	r0, r0, #8
+ 220 0014 80B2     		uxth	r0, r0
+ 221              		.loc 1 37 11 view .LVU30
+ 222 0016 2044     		add	r0, r0, r4
+ 223              	.LVL12:
+  38:Core/Src/as5600.c **** 	return AngleVal;	
+ 224              		.loc 1 38 2 is_stmt 1 view .LVU31
+  39:Core/Src/as5600.c **** }
+ 225              		.loc 1 39 1 is_stmt 0 view .LVU32
+ 226 0018 80B2     		uxth	r0, r0
+ 227              		.loc 1 39 1 view .LVU33
+ 228 001a 10BD     		pop	{r4, pc}
+ 229              		.cfi_endproc
+ 230              	.LFE133:
+ 232              		.section	.text.AS5600_GetStatus,"ax",%progbits
+ 233              		.align	1
+ 234              		.global	AS5600_GetStatus
+ 235              		.syntax unified
+ 236              		.thumb
+ 237              		.thumb_func
+ 238              		.fpu fpv4-sp-d16
+ 240              	AS5600_GetStatus:
+ 241              	.LFB134:
+  40:Core/Src/as5600.c **** 
+  41:Core/Src/as5600.c **** uint8_t AS5600_GetStatus()
+  42:Core/Src/as5600.c **** {
+ 242              		.loc 1 42 1 is_stmt 1 view -0
+ 243              		.cfi_startproc
+ 244              		@ args = 0, pretend = 0, frame = 0
+ 245              		@ frame_needed = 0, uses_anonymous_args = 0
+ 246 0000 08B5     		push	{r3, lr}
+ 247              		.cfi_def_cfa_offset 8
+ 248              		.cfi_offset 3, -8
+ 249              		.cfi_offset 14, -4
+  43:Core/Src/as5600.c **** 	return AS5600_ReadReg(STATUS) & 0x38;	
+ 250              		.loc 1 43 2 view .LVU35
+ 251              		.loc 1 43 9 is_stmt 0 view .LVU36
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 6
+
+
+ 252 0002 0B20     		movs	r0, #11
+ 253 0004 FFF7FEFF 		bl	AS5600_ReadReg
+ 254              	.LVL13:
+  44:Core/Src/as5600.c **** }
+ 255              		.loc 1 44 1 view .LVU37
+ 256 0008 00F03800 		and	r0, r0, #56
+ 257 000c 08BD     		pop	{r3, pc}
+ 258              		.cfi_endproc
+ 259              	.LFE134:
+ 261              		.section	.text.AS5600_SetHystheresis,"ax",%progbits
+ 262              		.align	1
+ 263              		.global	AS5600_SetHystheresis
+ 264              		.syntax unified
+ 265              		.thumb
+ 266              		.thumb_func
+ 267              		.fpu fpv4-sp-d16
+ 269              	AS5600_SetHystheresis:
+ 270              	.LVL14:
+ 271              	.LFB135:
+  45:Core/Src/as5600.c **** 
+  46:Core/Src/as5600.c **** void AS5600_SetHystheresis(uint8_t Hyst)
+  47:Core/Src/as5600.c **** {
+ 272              		.loc 1 47 1 is_stmt 1 view -0
+ 273              		.cfi_startproc
+ 274              		@ args = 0, pretend = 0, frame = 0
+ 275              		@ frame_needed = 0, uses_anonymous_args = 0
+ 276              		.loc 1 47 1 is_stmt 0 view .LVU39
+ 277 0000 10B5     		push	{r4, lr}
+ 278              		.cfi_def_cfa_offset 8
+ 279              		.cfi_offset 4, -8
+ 280              		.cfi_offset 14, -4
+ 281 0002 0446     		mov	r4, r0
+  48:Core/Src/as5600.c **** 	uint8_t TmpConfHigh=AS5600_ReadReg(CONF_H);
+ 282              		.loc 1 48 2 is_stmt 1 view .LVU40
+ 283              		.loc 1 48 22 is_stmt 0 view .LVU41
+ 284 0004 0820     		movs	r0, #8
+ 285              	.LVL15:
+ 286              		.loc 1 48 22 view .LVU42
+ 287 0006 FFF7FEFF 		bl	AS5600_ReadReg
+ 288              	.LVL16:
+  49:Core/Src/as5600.c **** 	TmpConfHigh |= (HYST_MASK & Hyst);	
+ 289              		.loc 1 49 2 is_stmt 1 view .LVU43
+ 290              		.loc 1 49 14 is_stmt 0 view .LVU44
+ 291 000a 04F00C04 		and	r4, r4, #12
+ 292 000e 0443     		orrs	r4, r4, r0
+ 293              	.LVL17:
+  50:Core/Src/as5600.c **** 	AS5600_WriteReg(CONF_H,TmpConfHigh);
+ 294              		.loc 1 50 2 is_stmt 1 view .LVU45
+ 295 0010 E1B2     		uxtb	r1, r4
+ 296 0012 0820     		movs	r0, #8
+ 297 0014 FFF7FEFF 		bl	AS5600_WriteReg
+ 298              	.LVL18:
+  51:Core/Src/as5600.c **** }
+ 299              		.loc 1 51 1 is_stmt 0 view .LVU46
+ 300 0018 10BD     		pop	{r4, pc}
+ 301              		.loc 1 51 1 view .LVU47
+ 302              		.cfi_endproc
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 7
+
+
+ 303              	.LFE135:
+ 305              		.section	.text.AS5600_SetOutputStage,"ax",%progbits
+ 306              		.align	1
+ 307              		.global	AS5600_SetOutputStage
+ 308              		.syntax unified
+ 309              		.thumb
+ 310              		.thumb_func
+ 311              		.fpu fpv4-sp-d16
+ 313              	AS5600_SetOutputStage:
+ 314              	.LVL19:
+ 315              	.LFB136:
+  52:Core/Src/as5600.c **** 
+  53:Core/Src/as5600.c **** void AS5600_SetOutputStage(uint8_t OutStage)
+  54:Core/Src/as5600.c **** {
+ 316              		.loc 1 54 1 is_stmt 1 view -0
+ 317              		.cfi_startproc
+ 318              		@ args = 0, pretend = 0, frame = 0
+ 319              		@ frame_needed = 0, uses_anonymous_args = 0
+ 320              		.loc 1 54 1 is_stmt 0 view .LVU49
+ 321 0000 10B5     		push	{r4, lr}
+ 322              		.cfi_def_cfa_offset 8
+ 323              		.cfi_offset 4, -8
+ 324              		.cfi_offset 14, -4
+ 325 0002 0446     		mov	r4, r0
+  55:Core/Src/as5600.c **** 	uint8_t TmpConfHigh=AS5600_ReadReg(CONF_H);
+ 326              		.loc 1 55 2 is_stmt 1 view .LVU50
+ 327              		.loc 1 55 22 is_stmt 0 view .LVU51
+ 328 0004 0820     		movs	r0, #8
+ 329              	.LVL20:
+ 330              		.loc 1 55 22 view .LVU52
+ 331 0006 FFF7FEFF 		bl	AS5600_ReadReg
+ 332              	.LVL21:
+  56:Core/Src/as5600.c **** 	TmpConfHigh |= (OUT_STG_MASK & OutStage);
+ 333              		.loc 1 56 2 is_stmt 1 view .LVU53
+ 334              		.loc 1 56 14 is_stmt 0 view .LVU54
+ 335 000a 04F03004 		and	r4, r4, #48
+ 336 000e 0443     		orrs	r4, r4, r0
+ 337              	.LVL22:
+  57:Core/Src/as5600.c **** 	AS5600_WriteReg(CONF_H,TmpConfHigh);
+ 338              		.loc 1 57 2 is_stmt 1 view .LVU55
+ 339 0010 E1B2     		uxtb	r1, r4
+ 340 0012 0820     		movs	r0, #8
+ 341 0014 FFF7FEFF 		bl	AS5600_WriteReg
+ 342              	.LVL23:
+  58:Core/Src/as5600.c **** }
+ 343              		.loc 1 58 1 is_stmt 0 view .LVU56
+ 344 0018 10BD     		pop	{r4, pc}
+ 345              		.loc 1 58 1 view .LVU57
+ 346              		.cfi_endproc
+ 347              	.LFE136:
+ 349              		.section	.text.AS5600_SetPWMFreq,"ax",%progbits
+ 350              		.align	1
+ 351              		.global	AS5600_SetPWMFreq
+ 352              		.syntax unified
+ 353              		.thumb
+ 354              		.thumb_func
+ 355              		.fpu fpv4-sp-d16
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 8
+
+
+ 357              	AS5600_SetPWMFreq:
+ 358              	.LVL24:
+ 359              	.LFB137:
+  59:Core/Src/as5600.c **** 
+  60:Core/Src/as5600.c **** void AS5600_SetPWMFreq(uint8_t Freq)
+  61:Core/Src/as5600.c **** {
+ 360              		.loc 1 61 1 is_stmt 1 view -0
+ 361              		.cfi_startproc
+ 362              		@ args = 0, pretend = 0, frame = 0
+ 363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 364              		.loc 1 61 1 is_stmt 0 view .LVU59
+ 365 0000 10B5     		push	{r4, lr}
+ 366              		.cfi_def_cfa_offset 8
+ 367              		.cfi_offset 4, -8
+ 368              		.cfi_offset 14, -4
+ 369 0002 0446     		mov	r4, r0
+  62:Core/Src/as5600.c **** 	uint8_t TmpConfHigh=AS5600_ReadReg(CONF_H);
+ 370              		.loc 1 62 2 is_stmt 1 view .LVU60
+ 371              		.loc 1 62 22 is_stmt 0 view .LVU61
+ 372 0004 0820     		movs	r0, #8
+ 373              	.LVL25:
+ 374              		.loc 1 62 22 view .LVU62
+ 375 0006 FFF7FEFF 		bl	AS5600_ReadReg
+ 376              	.LVL26:
+  63:Core/Src/as5600.c **** 	TmpConfHigh |= (PWMF_MASK & Freq);
+ 377              		.loc 1 63 2 is_stmt 1 view .LVU63
+ 378              		.loc 1 63 14 is_stmt 0 view .LVU64
+ 379 000a 24F03F04 		bic	r4, r4, #63
+ 380 000e 0443     		orrs	r4, r4, r0
+ 381              	.LVL27:
+  64:Core/Src/as5600.c **** 	AS5600_WriteReg(CONF_H,TmpConfHigh);
+ 382              		.loc 1 64 2 is_stmt 1 view .LVU65
+ 383 0010 E1B2     		uxtb	r1, r4
+ 384 0012 0820     		movs	r0, #8
+ 385 0014 FFF7FEFF 		bl	AS5600_WriteReg
+ 386              	.LVL28:
+  65:Core/Src/as5600.c **** }
+ 387              		.loc 1 65 1 is_stmt 0 view .LVU66
+ 388 0018 10BD     		pop	{r4, pc}
+ 389              		.loc 1 65 1 view .LVU67
+ 390              		.cfi_endproc
+ 391              	.LFE137:
+ 393              		.text
+ 394              	.Letext0:
+ 395              		.file 2 "c:\\users\\84886\\desktop\\project stm32\\tool\\arm-gnu-toolchain-12.2.mpacbti-rel1-mingw
+ 396              		.file 3 "c:\\users\\84886\\desktop\\project stm32\\tool\\arm-gnu-toolchain-12.2.mpacbti-rel1-mingw
+ 397              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 398              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 399              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 400              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 401              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 402              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 403              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 as5600.c
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:18     .text.AS5600_WriteReg:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:26     .text.AS5600_WriteReg:00000000 AS5600_WriteReg
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:79     .text.AS5600_WriteReg:00000038 $d
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:84     .text.AS5600_ReadReg:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:91     .text.AS5600_ReadReg:00000000 AS5600_ReadReg
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:132    .text.AS5600_ReadReg:0000002c $d
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:137    .text.AS5600_GetAngle:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:144    .text.AS5600_GetAngle:00000000 AS5600_GetAngle
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:184    .text.AS5600_GetAngle:00000038 $d
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:190    .text.AS5600_GetRawAngle:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:197    .text.AS5600_GetRawAngle:00000000 AS5600_GetRawAngle
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:233    .text.AS5600_GetStatus:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:240    .text.AS5600_GetStatus:00000000 AS5600_GetStatus
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:262    .text.AS5600_SetHystheresis:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:269    .text.AS5600_SetHystheresis:00000000 AS5600_SetHystheresis
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:306    .text.AS5600_SetOutputStage:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:313    .text.AS5600_SetOutputStage:00000000 AS5600_SetOutputStage
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:350    .text.AS5600_SetPWMFreq:00000000 $t
+C:\Users\84886\AppData\Local\Temp\cc3AIUFC.s:357    .text.AS5600_SetPWMFreq:00000000 AS5600_SetPWMFreq
+
+UNDEFINED SYMBOLS
+HAL_I2C_Master_Transmit
+HAL_I2C_Mem_Write
+hi2c1
+HAL_I2C_Mem_Read

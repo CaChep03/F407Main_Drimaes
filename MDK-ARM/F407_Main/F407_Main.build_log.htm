@@ -22,25 +22,19 @@ Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
 C:\Users\84886\Desktop\Project STM32\DRIMAES\F407VE_MAIN\MDK-ARM\F407_Main.uvprojx
-Project File Date:  09/05/2023
+Project File Date:  10/11/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'F407_Main'
 compiling main.c...
-../Core/Src/main.c(77): warning:  #188-D: enumerated type mixed with another type
-      HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, 0);
-../Core/Src/main.c(167): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-      I2C_Send_Data(Data_2_Slave_1, Data_2_Slave_2, Slave_1_Address, Slave_2_Address);
-../Core/Src/main.c(167): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-      I2C_Send_Data(Data_2_Slave_1, Data_2_Slave_2, Slave_1_Address, Slave_2_Address);
-../Core/Src/main.c(73): warning:  #177-D: function "NRF24_error"  was declared but never referenced
-  static void NRF24_error()
-../Core/Src/main.c: 4 warnings, 0 errors
+../Core/Src/main.c(69): warning:  #520-D: initialization with "{...}" expected for aggregate object
+  uint8_t Scan_arr[128]=0;
+../Core/Src/main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=15326 RO-data=458 RW-data=32 ZI-data=1936  
+Program Size: Code=20038 RO-data=458 RW-data=28 ZI-data=2332  
 FromELF: creating hex file...
-"F407_Main\F407_Main.axf" - 0 Error(s), 4 Warning(s).
+"F407_Main\F407_Main.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

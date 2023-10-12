@@ -30,8 +30,15 @@ f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
 f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
-f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
-f407_main\main.o: ../Core/Inc/nrf24l01.h
+f407_main\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+f407_main\main.o: ../Core/Inc/dma.h
+f407_main\main.o: ../Core/Inc/i2c.h
+f407_main\main.o: ../Core/Inc/tim.h
+f407_main\main.o: ../Core/Inc/usart.h
+f407_main\main.o: ../Core/Inc/gpio.h
 f407_main\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+f407_main\main.o: ../Core/Inc/pid.h
+f407_main\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+f407_main\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
